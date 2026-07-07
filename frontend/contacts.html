@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeLink - Trusted Contacts</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <h2>Trusted Contacts</h2>
+    <a href="dashboard.html">⬅ Back</a>
+</header>
+
+<div class="container">
+
+    <h3>Add Emergency Contact</h3>
+
+    <input type="text" id="contactName" placeholder="Full Name">
+
+    <input type="tel" id="contactPhone" placeholder="Phone Number">
+
+    <input type="email" id="contactEmail" placeholder="Email Address">
+
+    <input type="text" id="relationship" placeholder="Relationship">
+
+    <button class="btn" onclick="addContact()">
+        save Contact
+    </button>
+</div>
+
+<hr>
+
+<div class="container">
+
+    <h3>Saved Contacts</h3>
+
+    <div id="contactList">
+</div>
+
+<script src="./js/contacts.js"></script>
+
+</body>
+</html>

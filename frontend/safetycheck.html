@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Safety Check</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+<h2>Safety Check</h2>
+<a href="dashboard.html">⬅ Back</a>
+</header>
+
+<div class="container">
+
+<h2>Safety Timer</h2>
+
+<h1 id="timer">05:00</h1>
+
+<button class="btn" onclick="startTimer()">
+▶ Start Timer
+</button>
+
+<br><br>
+
+<button class="btn" onclick="imSafe()">
+✅ I'm Safe
+</button>
+
+<p style="margin-top:20px;">
+If the timer reaches zero, trusted contacts will be notified.
+</p>
+
+</div>
+
+<script src="./js/safetycheck.js"></script>
+
+</body>
+</html>

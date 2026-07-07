@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeLink - Live Location</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <h2>Live Location</h2>
+    <a href="dashboard.html">⬅ Back</a>
+</header>
+
+<div class="container">
+
+    <h3>Your Current Location</h3>
+
+    <div class="map-box">
+        🗺️ Google Map will appear here
+    </div>
+
+    <button class="btn" onclick="getLocation()">
+        📍 Get Current Location
+    </button>
+
+</div>
+
+<div class="container">
+
+    <h3>Nearby Emergency Services</h3>
+
+    <div class="card">🚓 Police Station</div>
+    <div class="card">🏥 Hospital</div>
+    <div class="card">🚒 Fire Station</div>
+    <div class="card">💊 Pharmacy</div>
+
+</div>
+
+<script src="./js/map.js"></script>
+
+</body>
+</html>

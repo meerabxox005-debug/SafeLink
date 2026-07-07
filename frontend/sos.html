@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeLink - SOS</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <h2>🚨 Emergency SOS</h2>
+    <a href="dashboard.html">⬅ Back</a>
+</header>
+
+<div class="container">
+
+    <h2>Emergency Help</h2>
+    <p>Press the SOS button to send an emergency alert.</p>
+
+    <button id="sosButton" class="sos-btn" onclick="startSOS()">
+        🚨 SOS
+    </button>
+
+    <h3 id="countdown"></h3>
+
+    <p id="status"></p>
+
+</div>
+
+<script src="./js/sos.js"></script>
+
+</body>
+</html>
