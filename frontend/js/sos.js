@@ -59,7 +59,7 @@ function sendSOS() {
                 console.log(data);
 
                 // Load trusted contacts
-                return fetch(`http://localhost:3000/api/sos-contacts/${userEmail}`);
+                return fetch(`http://safelink-hbf7.onrender.com/api/sos-contacts/${userEmail}`);
 
             })
            .then(response => {

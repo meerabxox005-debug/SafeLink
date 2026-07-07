@@ -29,7 +29,7 @@ function signup() {
         password
     };
 
-    fetch("http://localhost:3000/api/signup", {
+    fetch("http://safelink-hbf7.onrender.com/api/signup", {
 
         method: "POST",
 

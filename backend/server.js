@@ -495,5 +495,5 @@ if (emergencyWords.some(word => message.toLowerCase().includes(word))) {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`✅ Server is running on http://localhost:${PORT}`);
+    console.log(`✅ Server is running on http://safelink-hbf7.onrender.com:${PORT}`);
 });

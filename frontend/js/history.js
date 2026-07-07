@@ -11,7 +11,7 @@ async function loadAlerts() {
 
     try {
 
-        const response = await fetch(`http://localhost:3000/api/alerts/${userEmail}`);
+        const response = await fetch(`http://safelink-hbf7.onrender.com/api/alerts/${userEmail}`);
         const alerts = await response.json();
 
         const alertList = document.getElementById("alertList");

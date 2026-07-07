@@ -19,7 +19,7 @@ async function sendMessage() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/api/chatbot", {
+        const response = await fetch("http://safelink-hbf7.onrender.com/api/chatbot", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

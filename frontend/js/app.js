@@ -1,6 +1,6 @@
 // Auto-check backend on page load
 window.onload = () => {
-  fetch("http://localhost:3000/health")
+  fetch("http://safelink-hbf7.onrender.com/health")
     .then(res => res.json())
     .then(data => {
       document.getElementById("status").innerText = data.status;
@@ -12,7 +12,7 @@ window.onload = () => {
 
 // Manual test button
 function testAPI() {
-  fetch("http://localhost:3000/api/test")
+  fetch("http://safelink-hbf7.onrender.com/api/test")
     .then(res => res.json())
     .then(data => {
       alert(data.message + " v" + data.version);

@@ -23,7 +23,7 @@ const relationship = document.getElementById("relationship").value;
 
     try {
 
-        const response = await fetch("http://localhost:3000/api/add-contact", {
+        const response = await fetch("http://safelink-hbf7.onrender.com/api/add-contact", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
