@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const Contact = require("./models/contact");
 
 const contactSchema = new mongoose.Schema({
     userEmail: {

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const Alert = require("./models/Alert");
 
 const alertSchema = new mongoose.Schema(
 {
