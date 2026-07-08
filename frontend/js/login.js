@@ -10,7 +10,7 @@ async function loginUser() {
 
     try {
 
-        const response = await fetch("http://safelink-hbf7.onrender.com/api/login", {
+        const response = await fetch("https://safelink-hbf7.onrender.com/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

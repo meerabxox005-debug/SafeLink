@@ -66,7 +66,7 @@ async function deleteContact(id) {
 
     try {
 
-        const response = await fetch(`http://localhost:3000/api/delete-contact/${id}`, {
+        const response = await fetch(`http://safelink-hbf7.onrender.com/api/delete-contact/${id}`, {
             method: "DELETE"
         });
 
@@ -94,7 +94,7 @@ async function loadContacts() {
 
     try {
 
-        const response = await fetch(`http://localhost:3000/api/contacts/${userEmail}`);
+        const response = await fetch(`http://safelink-hbf7.onrender.com/api/contacts/${userEmail}`);
         const contacts = await response.json();
 
         const list = document.getElementById("contactList");
