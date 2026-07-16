@@ -39,7 +39,7 @@ function sendSOS() {
             const mapLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
             const userEmail = localStorage.getItem("userEmail");
 
-            fetch("https://safelink-hbf7.onrender.com/api/sos", {
+           fetch("https://safelink-1-vyfn.onrender.com/login/api/sos", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -59,7 +59,7 @@ function sendSOS() {
                 console.log(data);
 
                 // Load trusted contacts
-                return fetch(`https://safelink-hbf7.onrender.com/api/sos-contacts/${userEmail}`);
+                return fetch(`https://safelink-1-vyfn.onrender.com/login/api/sos-contacts/${userEmail}`);
 
             })
            .then(response => {

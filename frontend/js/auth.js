@@ -2,7 +2,7 @@ function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-   fetch("https://safelink-hbf7.onrender.com/api/test"), {
+   fetch("https://safelink-1-vyfn.onrender.com/login"), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
