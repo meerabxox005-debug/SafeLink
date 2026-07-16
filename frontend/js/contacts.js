@@ -23,7 +23,7 @@ const relationship = document.getElementById("relationship").value;
 
     try {
 
-        const response = await fetch("https://safelink-hbf7.onrender.com/api/add-contact", {
+        const response = await fetch(`${API_URL}/api/contacts/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -66,7 +66,7 @@ async function deleteContact(id) {
 
     try {
 
-        const response = await fetch(`https://safelink-1-vyfn.onrender.com/login/api/delete-contact/${id}`, {
+        const response = await fetch(`${API_URL}/api/contacts/${id}`, {
             method: "DELETE"
         });
 
@@ -94,7 +94,7 @@ async function loadContacts() {
 
     try {
 
-        const response = await fetch(`https://safelink-1-vyfn.onrender.com/login/api/contacts/${userEmail}`);
+        const response = await fetch(`${API_URL}/api/contacts/${userEmail}`);
         const contacts = await response.json();
 
         const list = document.getElementById("contactList");

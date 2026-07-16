@@ -1,9 +1,12 @@
 // Get logged-in user's name
-const userName = localStorage.getItem("userName");
+const name = localStorage.getItem("userName");
+
+if (name) {
+    welcome.innerHTML = `${greeting}, ${name}! 👋`;
+}
 
 // Display the name
 const welcome = document.getElementById("welcomeUser");
-const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
 const hour = new Date().getHours();
 
@@ -17,8 +20,10 @@ if (hour < 12) {
     greeting = "Good Evening";
 }
 
-if (user) {
-    welcome.innerHTML = `${greeting}, ${user.name}! 👋`;
+const name = localStorage.getItem("userName");
+
+if (name) {
+    welcome.innerHTML = `${greeting}, ${name}! 👋`;
 }
 
 const contacts = JSON.parse(localStorage.getItem("contacts")) || [];

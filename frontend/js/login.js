@@ -8,7 +8,7 @@ async function loginUser() {
     }
 
     try {
-        const response = await fetch("https://safelink-1-vyfn.onrender.com/api/auth/login", {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

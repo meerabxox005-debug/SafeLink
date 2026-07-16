@@ -1,0 +1,1 @@
+const API_URL = "https://safelink-1-vyfn.onrender.com";
