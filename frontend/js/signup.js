@@ -29,7 +29,7 @@ function signup() {
         password
     };
 
-    fetch("https://safelink-hbf7.onrender.com/api/signup", {
+    fetch("https://safelink-1-vyfn.onrender.com/login/api/signup", {
         method: "POST",
 
         headers: {
