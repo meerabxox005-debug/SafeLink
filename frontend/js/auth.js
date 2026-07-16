@@ -11,7 +11,7 @@ function login() {
             email,
             password
         })
-    })
+    }
     .then(res => res.json())
     .then(data => {
         if (data.success) {

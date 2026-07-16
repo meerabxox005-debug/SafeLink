@@ -2,7 +2,25 @@ node_modules/
 backend/node_modules/
 frontend/node_modules/
 
+backend-fastapi/.env
+google app password.PNG
+
 .env
 backend/.env
 
 status.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Virtual environments
+venv/
+backend-fastapi/venv/
+
+# Environment files
+backend-fastapi/.env
+
+# Images
+google app password.PNG

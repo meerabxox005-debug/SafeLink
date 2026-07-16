@@ -1,40 +1,41 @@
 async function loginUser() {
-
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    if (email === "" || password === "") {
+    if (!email || !password) {
         alert("Please enter your email and password.");
         return;
     }
 
     try {
-
-        const response = await fetch("https://safelink-hbf7.onrender.com/api/login", {
+        const response = await fetch("https://safelink-hbf7.onrender.com/api/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email: email,
-                password: password
+                email,
+                password
             })
         });
 
         const data = await response.json();
 
-        if (data.success) {
+        if (response.ok) {
+            localStorage.setItem("userEmail", email);
 
-            localStorage.setItem("userName", data.user.name);
-            localStorage.setItem("userEmail", data.user.email);
+            if (data.user?.name) {
+                localStorage.setItem("userName", data.user.name);
+            }
 
-            alert(data.message);
+            alert(data.message || "Login successful!");
             window.location.href = "dashboard.html";
         } else {
-            alert(data.message);
+            alert(data.detail || data.message || "Login failed.");
         }
 
     } catch (error) {
-        alert("Unable to connect to the backend.");
+        console.error(error);
+        alert("Unable to connect to the server.");
     }
 }
