@@ -14,31 +14,12 @@ class SOSRequest(BaseModel):
     latitude: float
     longitude: float
 
+...
+
 @router.post("/")
 async def send_sos(data: SOSRequest):
 
-    alert = {
-        "userEmail": data.userEmail,
-        "latitude": data.latitude,
-        "longitude": data.longitude,
-        "time": datetime.utcnow()
-    }
-
-    alerts_collection.insert_one(alert)
-
-    # Get all trusted contacts
-    contacts = list(
-        contacts_collection.find({"userEmail": data.userEmail})
-    )
-
-    # Send email to each trusted contact
-    for contact in contacts:
-        await send_sos_email(
-            receiver=contact["email"],
-            user_email=data.userEmail,
-            latitude=data.latitude,
-            longitude=data.longitude
-        )
+    # existing SOS code here
 
     return {
         "success": True,
@@ -48,3 +29,16 @@ async def send_sos(data: SOSRequest):
             "lng": data.longitude
         }
     }
+
+
+@router.get("/{user_email}")
+async def get_alerts(user_email: str):
+
+    alerts = list(
+        alerts_collection.find(
+            {"userEmail": user_email},
+            {"_id": 0}
+        )
+    )
+
+    return alerts

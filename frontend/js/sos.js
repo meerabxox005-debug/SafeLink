@@ -5,17 +5,27 @@ function startSOS() {
 
     const countdown = document.getElementById("countdown");
     const status = document.getElementById("status");
+    const button = document.getElementById("sosButton");
+
+    // Prevent multiple clicks
+    button.disabled = true;
+
+    seconds = 5;
 
     status.innerHTML = "Preparing emergency alert...";
+    countdown.innerHTML = `Sending alert in ${seconds}...`;
 
     timer = setInterval(() => {
 
-        countdown.innerHTML = `Sending alert in ${seconds}...`;
         seconds--;
+
+        if (seconds >= 0) {
+            countdown.innerHTML = `Sending alert in ${seconds}...`;
+        }
 
         if (seconds < 0) {
             clearInterval(timer);
-            seconds = 5;
+            countdown.innerHTML = "";
             sendSOS();
         }
 
@@ -24,14 +34,20 @@ function startSOS() {
 
 function sendSOS() {
 
+    const status = document.getElementById("status");
+    const button = document.getElementById("sosButton");
+
     if (!navigator.geolocation) {
         alert("Geolocation is not supported.");
+        button.disabled = false;
         return;
     }
 
+    status.innerHTML = "📍 Getting your location...";
+
     navigator.geolocation.getCurrentPosition(
 
-        function (position) {
+        async function(position) {
 
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
@@ -39,71 +55,86 @@ function sendSOS() {
             const mapLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
             const userEmail = localStorage.getItem("userEmail");
 
-           fetch("https://safelink-1-vyfn.onrender.com/login/api/sos", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    userEmail,
-                    latitude,
-                    longitude,
-                    locationLink: mapLink
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
+            try {
 
-                // Alert saved successfully
-                alert(data.message);
-                console.log(data);
+                status.innerHTML = "🚨 Sending emergency alert...";
 
-                // Load trusted contacts
-                return fetch(`https://safelink-1-vyfn.onrender.com/login/api/sos-contacts/${userEmail}`);
+                const response = await fetch("https://safelink-1-vyfn.onrender.com/login/api/sos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        userEmail,
+                        latitude,
+                        longitude,
+                        locationLink: mapLink
+                    })
+                });
 
-            })
-           .then(response => {
-    console.log("Status:", response.status);
-    return response.json();
-})
-            .then(data => {
-                 console.log("SOS Contacts Response:", data);
+                const data = await response.json();
 
-                if (data.success) {
-
-                    if (data.contacts.length === 0) {
-                        alert("No trusted contacts found.");
-                    } else {
-
-                        let message = "🚨 SOS would be sent to:\n\n";
-
-                        data.contacts.forEach(contact => {
-                            message += `${contact.name} (${contact.relationship})\n📞 ${contact.phone}\n\n`;
-                        });
-
-                        alert(message);
-                    }
-
-                } else {
-                    alert("Unable to load trusted contacts.");
+                if (!response.ok) {
+                    throw new Error(data.detail || "Failed to send SOS.");
                 }
 
-            })
-            .catch(err => {
-    console.error("SOS Error:", err);
-    alert("Something went wrong.");
-});
+                status.innerHTML = `
+                    ✅ Emergency alert sent successfully!<br><br>
+                    <a href="${mapLink}" target="_blank">View Your Location</a>
+                `;
 
-            document.getElementById("status").innerHTML =
-                `🚨 SOS Sent!<br><br>Your Location:<br><a href="${mapLink}" target="_blank">${mapLink}</a>`;
+                alert(data.message);
 
-            console.log("Latitude:", latitude);
-            console.log("Longitude:", longitude);
+                const contactsResponse = await fetch(
+                    `https://safelink-1-vyfn.onrender.com/login/api/sos-contacts/${userEmail}`
+                );
+
+                const contactsData = await contactsResponse.json();
+
+                if (contactsData.success && contactsData.contacts.length > 0) {
+
+                    let message = "🚨 SOS will be sent to:\n\n";
+
+                    contactsData.contacts.forEach(contact => {
+                        message += `${contact.name}\n`;
+                        message += `${contact.relationship}\n`;
+                        message += `${contact.phone}\n\n`;
+                    });
+
+                    alert(message);
+
+                } else {
+
+                    alert("No trusted contacts found.");
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+                status.innerHTML = "❌ Failed to send emergency alert.";
+
+                alert(error.message || "Something went wrong.");
+
+            } finally {
+
+                button.disabled = false;
+
+            }
 
         },
 
-        function (error) {
-            alert("Unable to get your location.");
+        function(error) {
+
+            console.error(error);
+
+            status.innerHTML = "❌ Unable to get your location.";
+
+            alert("Unable to access your location.");
+
+            button.disabled = false;
+
         }
 
     );
