@@ -1,3 +1,6 @@
+import os
+import google.generativeai as genai
+
 from fastapi import APIRouter
 from app.models import ChatRequest
 
@@ -6,71 +9,82 @@ router = APIRouter(
     tags=["AI Chatbot"]
 )
 
+# Configure Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+SYSTEM_PROMPT = """
+You are SafeLink AI.
+
+You are a friendly, supportive AI assistant built into the SafeLink application.
+
+You ONLY help with topics related to:
+
+- Personal safety
+- Emergency preparedness
+- Women's safety
+- Child safety
+- Travel safety
+- Cyber safety
+- First aid
+- Disaster preparedness
+- Mental wellbeing
+- SafeLink app features
+- Trusted contacts
+- SOS feature
+- Location sharing
+- Nearby emergency services
+
+Your personality:
+- Friendly
+- Calm
+- Caring
+- Professional
+- Easy to understand
+
+You can have natural conversations.
+
+If someone greets you, greet them warmly.
+
+If someone asks a safety question, answer in detail.
+
+If someone asks something unrelated such as:
+- Poems
+- Coding
+- Homework
+- Movies
+- Politics
+- Random facts
+
+Politely explain that you're SafeLink AI and your purpose is helping with safety and SafeLink features.
+
+Never pretend to call emergency services.
+
+If someone may be in danger, advise using the SafeLink SOS feature and contacting local emergency services.
+"""
+
+chat = model.start_chat(history=[])
+
+
 @router.post("/")
-def chat(data: ChatRequest):
+async def chatbot(data: ChatRequest):
 
-    message = data.message.lower()
+    prompt = f"""
+{SYSTEM_PROMPT}
 
-    if "help" in message:
-        reply = (
-            "I'm here to help. ❤️ "
-            "If you're in immediate danger, press the SOS button, move to a safe place if possible, "
-            "and contact your local emergency services. You can also ask me about safety tips, "
-            "first aid, travel safety, or using SafeLink."
-        )
+User:
+{data.message}
+"""
 
-    elif "unsafe" in message:
-        reply = (
-            "I'm sorry you're feeling unsafe. Try to stay calm, move to a public or well-lit area, "
-            "contact someone you trust, and use the SOS feature if you need immediate assistance."
-        )
+    try:
+        response = chat.send_message(prompt)
 
-    elif "panic" in message or "anxious" in message:
-        reply = (
-            "Take a slow breath. You're not alone. Try focusing on your breathing for a moment, "
-            "look around and identify five things you can see, and contact someone you trust if you can."
-        )
+        return {
+            "reply": response.text
+        }
 
-    elif "hello" in message or "hi" in message or "hey" in message:
-        reply = (
-            "Hello! 😊 I'm SafeLink AI. I'm here to answer your safety questions and help you use the app. "
-            "What would you like to know today?"
-        )
-
-    elif "thank" in message:
-        reply = (
-            "You're very welcome! 😊 Stay safe, and remember I'm always here if you need guidance."
-        )
-
-    elif "sos" in message:
-        reply = (
-            "The SOS feature sends your location and emergency alert to your trusted contacts. "
-            "Use it only when you need urgent assistance."
-        )
-
-    elif "contact" in message:
-        reply = (
-            "You can add trusted contacts from the Trusted Contacts page. "
-            "These people will receive your emergency alerts."
-        )
-
-    elif "location" in message:
-        reply = (
-            "SafeLink can share your live location during emergencies and help you find nearby services."
-        )
-
-    elif "safe" in message:
-        reply = (
-            "I'm glad to hear that! 😊 Is there anything else you'd like help with?"
-        )
-
-    else:
-        reply = (
-            "I'm SafeLink AI. 😊 "
-            "I can answer questions about personal safety, first aid, travel safety, emergency preparedness, "
-            "and explain how SafeLink works. Feel free to ask me anything!"
-        )
-
-    return {
-        "reply": reply
-    }
+    except Exception:
+        return {
+            "reply": "I'm sorry, I'm having trouble connecting to the AI service right now. Please try again in a moment."
+        }
