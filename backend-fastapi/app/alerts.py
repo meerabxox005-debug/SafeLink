@@ -14,12 +14,38 @@ class SOSRequest(BaseModel):
     latitude: float
     longitude: float
 
-...
 
 @router.post("/")
 async def send_sos(data: SOSRequest):
 
-    # existing SOS code here
+    # Google Maps link
+    map_link = f"https://maps.google.com/?q={data.latitude},{data.longitude}"
+
+    # Save SOS alert
+    alert = {
+        "userEmail": data.userEmail,
+        "latitude": data.latitude,
+        "longitude": data.longitude,
+        "locationLink": map_link,
+        "createdAt": datetime.utcnow()
+    }
+
+    alerts_collection.insert_one(alert)
+
+    # Get trusted contacts
+    contacts = list(
+        contacts_collection.find({"userEmail": data.userEmail})
+    )
+
+    # Send email to every trusted contact
+    for contact in contacts:
+        if "email" in contact and contact["email"]:
+            await send_sos_email(
+                receiver=contact["email"],
+                user_email=data.userEmail,
+                latitude=data.latitude,
+                longitude=data.longitude
+            )
 
     return {
         "success": True,

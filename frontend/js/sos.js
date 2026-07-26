@@ -2,21 +2,17 @@ let seconds = 5;
 let timer;
 
 function startSOS() {
-
     const countdown = document.getElementById("countdown");
     const status = document.getElementById("status");
     const button = document.getElementById("sosButton");
 
-    // Prevent multiple clicks
     button.disabled = true;
 
     seconds = 5;
-
     status.innerHTML = "Preparing emergency alert...";
     countdown.innerHTML = `Sending alert in ${seconds}...`;
 
     timer = setInterval(() => {
-
         seconds--;
 
         if (seconds >= 0) {
@@ -28,12 +24,10 @@ function startSOS() {
             countdown.innerHTML = "";
             sendSOS();
         }
-
     }, 1000);
 }
 
 function sendSOS() {
-
     const status = document.getElementById("status");
     const button = document.getElementById("sosButton");
 
@@ -46,8 +40,7 @@ function sendSOS() {
     status.innerHTML = "📍 Getting your location...";
 
     navigator.geolocation.getCurrentPosition(
-
-        async function(position) {
+        async function (position) {
 
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
@@ -59,7 +52,7 @@ function sendSOS() {
 
                 status.innerHTML = "🚨 Sending emergency alert...";
 
-                const response = await fetch("https://safelink-1-vyfn.onrender.com/login/api/sos", {
+                const response = await fetch("https://safelink-1-vyfn.onrender.com/api/alerts/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -80,22 +73,23 @@ function sendSOS() {
 
                 status.innerHTML = `
                     ✅ Emergency alert sent successfully!<br><br>
-                    <a href="${mapLink}" target="_blank">View Your Location</a>
+                    <a href="${mapLink}" target="_blank">📍 View Your Location</a>
                 `;
 
                 alert(data.message);
 
+                // Load trusted contacts
                 const contactsResponse = await fetch(
-                    `https://safelink-1-vyfn.onrender.com/login/api/sos-contacts/${userEmail}`
+                    `https://safelink-1-vyfn.onrender.com/api/contacts/${userEmail}`
                 );
 
                 const contactsData = await contactsResponse.json();
 
-                if (contactsData.success && contactsData.contacts.length > 0) {
+                if (contactsData.length > 0) {
 
-                    let message = "🚨 SOS will be sent to:\n\n";
+                    let message = "🚨 SOS sent to:\n\n";
 
-                    contactsData.contacts.forEach(contact => {
+                    contactsData.forEach(contact => {
                         message += `${contact.name}\n`;
                         message += `${contact.relationship}\n`;
                         message += `${contact.phone}\n\n`;
@@ -122,10 +116,9 @@ function sendSOS() {
                 button.disabled = false;
 
             }
-
         },
 
-        function(error) {
+        function (error) {
 
             console.error(error);
 
@@ -136,6 +129,5 @@ function sendSOS() {
             button.disabled = false;
 
         }
-
     );
 }
