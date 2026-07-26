@@ -7,7 +7,6 @@ async function sendMessage() {
 
     if (message === "") return;
 
-    // Show user message
     chatBox.innerHTML += `
         <div class="user-message">
             ${message}
@@ -49,3 +48,14 @@ async function sendMessage() {
         console.error(error);
     }
 }
+
+document.getElementById("userInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+    }
+});
+
+window.onload = function () {
+    document.getElementById("userInput").focus();
+};
