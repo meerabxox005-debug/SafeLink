@@ -31,7 +31,9 @@ class SOSRequest(BaseModel):
     longitude: float
 
 
-# Chatbot Request
+from typing import List
+
 class ChatRequest(BaseModel):
     message: str
+    history: List[dict] = []
 

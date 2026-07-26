@@ -66,11 +66,11 @@ Never pretend to call emergency services.
 If someone may be in danger, advise using the SafeLink SOS feature and contacting local emergency services.
 """
 
-chat = model.start_chat(history=[])
-
 
 @router.post("/")
 async def chatbot(data: ChatRequest):
+
+    chat = model.start_chat(history=data.history)
 
     prompt = f"""
 {SYSTEM_PROMPT}
@@ -87,6 +87,6 @@ User:
         }
 
     except Exception as e:
-         return {
+        return {
             "reply": str(e)
-    }
+        }
