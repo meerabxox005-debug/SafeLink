@@ -12,7 +12,7 @@ router = APIRouter(
 # Configure Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 for model in genai.list_models():
-    print(model.name)
+    print("Model:", "gemini-2.5-flash")
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
