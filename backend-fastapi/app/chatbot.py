@@ -84,7 +84,7 @@ User:
             "reply": response.text
         }
 
-    except Exception:
-        return {
-            "reply": "I'm sorry, I'm having trouble connecting to the AI service right now. Please try again in a moment."
-        }
+    except Exception as e:
+         return {
+            "reply": str(e)
+    }
