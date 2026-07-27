@@ -13,7 +13,8 @@ conf = ConnectionConfig(
     MAIL_SERVER=os.getenv("MAIL_SERVER"),
     MAIL_STARTTLS=True,
     MAIL_SSL_TLS=False,
-    USE_CREDENTIALS=True
+    USE_CREDENTIALS=True,
+    Timeout=60
 )
 
 async def send_sos_email(receiver: str, user_email: str, latitude: float, longitude: float):

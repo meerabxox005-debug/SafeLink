@@ -39,13 +39,15 @@ async def send_sos(data: SOSRequest):
 
     # Send email to every trusted contact
     for contact in contacts:
-        if "email" in contact and contact["email"]:
-            await send_sos_email(
-                receiver=contact["email"],
-                user_email=data.userEmail,
-                latitude=data.latitude,
-                longitude=data.longitude
-            )
+        try:
+             await send_sos_email(
+            receiver=contact["email"],
+            user_email=data.userEmail,
+            latitude=data.latitude,
+            longitude=data.longitude
+        )
+        except Exception as e: 
+            print("Email failed:", e)
 
     return {
         "success": True,

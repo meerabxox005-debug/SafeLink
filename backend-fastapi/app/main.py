@@ -39,3 +39,17 @@ def home():
 @app.get("/health")
 def health():
     return {"status": "healthy"}
+
+# ---------- TEST EMAIL ROUTE ----------
+from app.email_service import send_sos_email
+
+@app.get("/test-email")
+async def test_email():
+    await send_sos_email(
+        receiver="yourpersonalemail@gmail.com",  # replace with your own email
+        user_email="test@safelink.com",
+        latitude=24.8607,
+        longitude=67.0011
+    )
+
+    return {"message": "Email sent successfully"}
