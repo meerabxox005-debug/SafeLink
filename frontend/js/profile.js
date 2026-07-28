@@ -1,15 +1,13 @@
 console.log("Profile Loaded");
 
-// Load profile when page opens
 window.onload = function () {
 
-    // Logged-in user
     const userName = localStorage.getItem("userName");
     const userEmail = localStorage.getItem("userEmail");
 
     if (userName) {
         document.getElementById("profileName").innerText = userName;
-        document.getElementById("name").value = userName;
+        document.getElementById("fullName").value = userName;
     }
 
     if (userEmail) {
@@ -17,23 +15,27 @@ window.onload = function () {
         document.getElementById("email").value = userEmail;
     }
 
-    // Load saved profile information
     document.getElementById("phone").value =
         localStorage.getItem("phone") || "";
 
-    document.getElementById("blood").value =
-        localStorage.getItem("blood") || "";
+    document.getElementById("bloodGroup").value =
+        localStorage.getItem("bloodGroup") || "";
 
-    document.getElementById("medical").value =
-        localStorage.getItem("medical") || "";
+    document.getElementById("medicalInfo").value =
+        localStorage.getItem("medicalInfo") || "";
 };
 
-// Save profile
 function saveProfile() {
 
+    // Save edited name
+    const fullName = document.getElementById("fullName").value;
+    localStorage.setItem("userName", fullName);
+    document.getElementById("profileName").innerText = fullName;
+
+    // Save other details
     localStorage.setItem("phone", document.getElementById("phone").value);
-    localStorage.setItem("blood", document.getElementById("blood").value);
-    localStorage.setItem("medical", document.getElementById("medical").value);
+    localStorage.setItem("bloodGroup", document.getElementById("bloodGroup").value);
+    localStorage.setItem("medicalInfo", document.getElementById("medicalInfo").value);
 
     alert("✅ Profile Updated Successfully!");
 }
