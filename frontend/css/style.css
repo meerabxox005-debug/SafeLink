@@ -563,3 +563,48 @@ body.dark .hero,
 body.dark .stats{
     background:transparent;
 }
+/* Profile page */
+body.dark .profile-card{
+    background:#1e1e1e;
+    color:white;
+    border:1px solid #333;
+}
+
+/* Buttons */
+body.dark .btn{
+    background:#e53935;
+    color:white;
+    border:none;
+}
+
+/* Quick action cards */
+body.dark .action{
+    background:#1e1e1e;
+    color:white;
+}
+
+body.dark .action h3,
+body.dark .action span{
+    color:white;
+}
+
+/* Inputs */
+body.dark input::placeholder,
+body.dark textarea::placeholder{
+    color:#bdbdbd;
+}
+
+/* Hero section */
+body.dark .hero{
+    background:#1e1e1e;
+}
+
+/* Stats */
+body.dark .stat-card{
+    background:#1e1e1e;
+}
+
+/* Settings cards */
+body.dark .card{
+    background:#1e1e1e;
+}

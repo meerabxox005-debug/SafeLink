@@ -1,25 +1,31 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     const btn = document.getElementById("themeToggle");
 
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark");
-        if (btn) btn.textContent = "☀️";
+    function applyTheme() {
+        const theme = localStorage.getItem("theme");
+
+        if (theme === "dark") {
+            document.body.classList.add("dark");
+            if (btn) btn.innerHTML = "☀️ Light Mode";
+        } else {
+            document.body.classList.remove("dark");
+            if (btn) btn.innerHTML = "🌙 Dark Mode";
+        }
     }
 
-    if (btn) {
-        btn.addEventListener("click", () => {
+    applyTheme();
 
-            document.body.classList.toggle("dark");
+    if (btn) {
+        btn.addEventListener("click", function () {
 
             if (document.body.classList.contains("dark")) {
-                localStorage.setItem("theme", "dark");
-                btn.textContent = "☀️";
-            } else {
                 localStorage.setItem("theme", "light");
-                btn.textContent = "🌙";
+            } else {
+                localStorage.setItem("theme", "dark");
             }
 
+            applyTheme();
         });
     }
 
