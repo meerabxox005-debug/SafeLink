@@ -5,6 +5,9 @@ import os
 
 load_dotenv()
 
+print("MAIL_SERVER:", os.getenv("MAIL_SERVER"))
+print("MAIL_PORT:", os.getenv("MAIL_PORT"))
+print("MAIL_USERNAME:", os.getenv("MAIL_USERNAME"))
 conf = ConnectionConfig(
     MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
     MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
@@ -13,7 +16,7 @@ conf = ConnectionConfig(
     MAIL_SERVER=os.getenv("MAIL_SERVER"),
     MAIL_STARTTLS=True,
     MAIL_SSL_TLS=False,
-    USE_CREDENTIALS=True
+    USE_CREDENTIALS=True,
 )
 
 async def send_sos_email(receiver: str, user_email: str, latitude: float, longitude: float):

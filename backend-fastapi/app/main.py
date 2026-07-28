@@ -53,3 +53,12 @@ async def test_email():
     )
 
     return {"message": "Email sent successfully"}
+import socket
+
+@app.get("/smtp-test")
+def smtp_test():
+    try:
+        socket.create_connection(("smtp-relay.brevo.com", 587), timeout=10)
+        return {"status": "Connected"}
+    except Exception as e:
+        return {"error": str(e)}
