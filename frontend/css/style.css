@@ -509,3 +509,57 @@ body.dark a{
     font-size:22px;
     cursor:pointer;
 }
+body.dark .action{
+    background:#1e1e1e;
+    color:white;
+    border:1px solid #333;
+}
+
+body.dark .action h3{
+    color:white;
+}
+
+body.dark .icon{
+    color:white;
+}
+
+body.dark .footer{
+    background:#1f1f1f;
+    color:white;
+}
+
+body.dark .bottom-nav{
+    background:#1f1f1f;
+}
+
+body.dark .bottom-nav a{
+    color:white;
+}
+body.dark .action{
+    background:#1f1f1f;
+    color:white;
+    border:1px solid #333;
+}
+
+body.dark .action h3,
+body.dark .action .icon{
+    color:white;
+}
+
+body.dark .bottom-nav{
+    background:#1f1f1f;
+}
+
+body.dark .bottom-nav a{
+    color:white;
+}
+
+body.dark .btn{
+    background:#e53935;
+    color:white;
+}
+
+body.dark .hero,
+body.dark .stats{
+    background:transparent;
+}
