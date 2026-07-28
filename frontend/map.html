@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#e53935">
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 </head>
 
 <body>
@@ -21,13 +26,22 @@
 
     <h3>Your Current Location</h3>
 
-    <div class="map-box">
-        🗺️ Google Map will appear here
-    </div>
+    <div id="map"
+style="
+height:400px;
+width:100%;
+border-radius:12px;
+margin-top:15px;
+">
+</div>
 
-    <button class="btn" onclick="getLocation()">
-        📍 Get Current Location
-    </button>
+<p id="locationText"></p>
+
+<br>
+
+<button class="btn" onclick="getLocation()">
+📍 Show My Live Location
+</button>
 
 </div>
 
