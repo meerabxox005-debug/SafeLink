@@ -39,3 +39,29 @@ function saveProfile() {
 
     alert("✅ Profile Updated Successfully!");
 }
+
+// Privacy Settings
+function privacySettings() {
+    alert("🔐 Your personal information is stored securely and only accessible to you.");
+}
+
+// Notification Settings
+function notificationSettings() {
+    alert("🔔 Email notifications are enabled for SOS alerts.");
+}
+
+// Help & Support
+function helpSupport() {
+    window.location.href = "chatbot.html";
+}
+
+// Logout
+function logout() {
+
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+
+    alert("👋 Logged out successfully!");
+
+    window.location.href = "login.html";
+}
