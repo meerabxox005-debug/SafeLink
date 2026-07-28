@@ -14,10 +14,19 @@
 <body>
   
     <!-- Header -->
-    <header class="navbar">
-        <h2>SafeLink AI</h2>
+   <header class="navbar">
+    <h2>SafeLink AI</h2>
+
+    <div style="display:flex;align-items:center;gap:12px;">
+
         <span>🔔</span>
-    </header>
+
+        <button id="themeToggle" class="theme-btn">
+            🌙
+        </button>
+
+    </div>
+</header>
 
     <!-- Welcome -->
    <div class="hero">
@@ -148,6 +157,8 @@ if ("serviceWorker" in navigator) {
         .catch(err => console.log(err));
 }
 </script>
+
+<script src="./js/theme.js"></script>
 
 </body>
 </html>
