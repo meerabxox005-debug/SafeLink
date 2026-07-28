@@ -6,22 +6,19 @@ function openNearby(place) {
     }
 
     navigator.geolocation.getCurrentPosition(
-
         function(position) {
 
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
 
             const url =
-                `https://www.google.com/maps/search/${encodeURIComponent(place)}/@${lat},${lng},15z`;
+                `https://www.google.com/maps/search/${encodeURIComponent(place)}/?api=1&query=${lat},${lng}`;
 
             window.open(url, "_blank");
 
         },
-
-        function() {
+        function(error) {
             alert("Unable to get your location.");
         }
-
     );
 }
