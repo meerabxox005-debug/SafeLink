@@ -1,15 +1,14 @@
-// Get logged-in user's name
-const name = localStorage.getItem("userName");
+console.log("Dashboard Loaded");
 
-if (name) {
-    welcome.innerHTML = `${greeting}, ${name}! 👋`;
+// -------------------- Save Profile --------------------
+function saveProfile() {
+    alert("Profile Updated Successfully!");
 }
 
-// Display the name
+// -------------------- Welcome Message --------------------
 const welcome = document.getElementById("welcomeUser");
 
 const hour = new Date().getHours();
-
 let greeting = "Welcome";
 
 if (hour < 12) {
@@ -20,15 +19,47 @@ if (hour < 12) {
     greeting = "Good Evening";
 }
 
-const name = localStorage.getItem("userName");
+const userName = localStorage.getItem("userName");
 
-if (name) {
-    welcome.innerHTML = `${greeting}, ${name}! 👋`;
+if (welcome && userName) {
+    welcome.innerHTML = `${greeting}, ${userName}! 👋`;
 }
 
-const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+// -------------------- Load Trusted Contact Count --------------------
+async function loadContactCount() {
+    try {
+        const userEmail = localStorage.getItem("userEmail");
 
-document.getElementById("contactCount").innerText =
-`${contacts.length} Trusted Contact${contacts.length !== 1 ? "s" : ""} Added`;
+        if (!userEmail) return;
 
-document.getElementById("contactStat").innerText = contacts.length;
+        const response = await fetch(
+            `https://safelink-1-vyfn.onrender.com/api/contacts/${userEmail}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load contacts.");
+        }
+
+        const contacts = await response.json();
+
+        const contactCount = document.getElementById("contactCount");
+        const contactStat = document.getElementById("contactStat");
+
+        if (contactCount) {
+            contactCount.innerText =
+                `${contacts.length} Trusted Contact${contacts.length !== 1 ? "s" : ""} Added`;
+        }
+
+        if (contactStat) {
+            contactStat.innerText = contacts.length;
+        }
+
+    } catch (error) {
+        console.error("Error loading contacts:", error);
+    }
+}
+
+// -------------------- Load Dashboard --------------------
+window.onload = function () {
+    loadContactCount();
+};
