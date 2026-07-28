@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import client
+from fastapi.staticfiles import StaticFiles
 
 # Import routers
 from app.auth import router as auth_router
@@ -32,10 +33,6 @@ app.include_router(contacts_router)
 app.include_router(alerts_router)
 app.include_router(chatbot_router)
 
-@app.get("/")
-def home():
-    return {"message": "✅ SafeLink FastAPI Backend is Running!"}
-
 @app.get("/health")
 def health():
     return {"status": "healthy"}
@@ -62,3 +59,11 @@ def smtp_test():
         return {"status": "Connected"}
     except Exception as e:
         return {"error": str(e)}
+
+
+# Serve frontend
+app.mount(
+    "/",
+    StaticFiles(directory="../frontend", html=True),
+    name="frontend"
+)
