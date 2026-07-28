@@ -40,5 +40,19 @@ setTimeout(() => {
 
 }, 3000);
 </script>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e53935">
+
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(() => console.log("✅ Service Worker Registered"))
+            .catch(err => console.log("Service Worker Error:", err));
+    });
+}
+</script>
+
 </body>
 </html>
