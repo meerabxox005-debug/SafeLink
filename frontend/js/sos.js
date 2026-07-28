@@ -72,11 +72,12 @@ function sendSOS() {
                 }
 
                 status.innerHTML = `
-                    ✅ Emergency alert sent successfully!<br><br>
-                    <a href="${mapLink}" target="_blank">📍 View Your Location</a>
-                `;
+    <h3 style="color:green;">✅ SOS Alert Sent Successfully!</h3>
+    <p>Your trusted contacts have been notified.</p>
+    <a href="${mapLink}" target="_blank">📍 View Your Location</a>
+`;
 
-                alert(data.message);
+                alert("✅ SOS Alert sent successfully! Your trusted contacts have been notified.");
 
                 // Load trusted contacts
                 const contactsResponse = await fetch(

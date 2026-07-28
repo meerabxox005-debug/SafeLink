@@ -136,3 +136,12 @@ window.onload = function () {
 
     chatBox.scrollTop = chatBox.scrollHeight;
 };
+
+function clearChat() {
+    if (confirm("Are you sure you want to clear the chat history?")) {
+        history = [];
+        localStorage.removeItem("chatHistory");
+        document.getElementById("chatBox").innerHTML = "";
+        document.getElementById("userInput").focus();
+    }
+}
